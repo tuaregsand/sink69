@@ -1,0 +1,30 @@
+.anchor
+.DS_Store
+target
+**/*.rs.bk
+node_modules
+test-ledger
+.yarn
+
+# Sensitive files
+deployer-keypair.json
+*.json
+
+# Next.js build output
+.next/
+
+# Environment variables
+.env*
+!/.env.example
+
+# Log files
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+target/
+
+PRODUCTION_READY.md 
+START_FRONTEND.md 
+TEST_RESULTS.md 
+FRONTEND_STATUS.md
