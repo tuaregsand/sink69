@@ -2,41 +2,25 @@
 
 ![Solana](https://img.shields.io/badge/Solana-9945FF?style=for-the-badge&logo=solana&logoColor=white)
 ![Rust](https://img.shields.io/badge/Rust-000000?style=for-the-badge&logo=rust&logoColor=white)
+![Anchor](https://img.shields.io/badge/Anchor-00A3E1?style=for-the-badge&logo=anchor&logoColor=white)
 ![TypeScript](https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white)
+![Next.js](https://img.shields.io/badge/Next.js-000000?style=for-the-badge&logo=nextdotjs&logoColor=white)
 
-A production-ready decentralized options trading platform built on Solana, enabling users to write, buy, and exercise options contracts for any SPL token with automated settlement and fee collection.
+A production-ready decentralized options trading platform built on Solana. Write, buy, and exercise options contracts for any SPL token with automated settlement and fee collection. This repository contains the Anchor smart contract and a Next.js frontend application.
 
-## 🎯 Overview
+## Features
+- **Decentralized Options Trading**: Write and trade call/put options for SPL tokens.
+- **Automated Settlement**: Smart contract-based option exercise and expiration.
+- **Collateral Management**: Secure collateral handling for writers.
+- **Permissionless Markets**: Ability to create options markets for various token pairs.
+- **Flexible Terms**: Customizable strike prices and expiration dates.
+- **Revenue Generation**: Protocol fees on premiums and settlements.
+- **Frontend Application**: A user-friendly Next.js application for interacting with the protocol (located in the `/app` directory).
 
-The Solana Options DEX is a comprehensive DeFi platform that provides:
-
-- **Decentralized Options Trading**: Write and trade call/put options for any SPL token
-- **Automated Settlement**: Smart contract-based option exercise and expiration handling
-- **Revenue Generation**: Multiple fee streams for sustainable protocol operation
-- **Collateral Management**: Secure and efficient collateral handling for both calls and puts
-- **Permissionless Markets**: Anyone can create options markets for token pairs
-
-## 💰 Revenue Model
-
-The platform generates revenue through multiple fee streams:
-
-| Fee Type | Rate | Applied On | Purpose |
-|----------|------|------------|---------|
-| **Protocol Fee** | 0.5% | Option premiums | Platform operations |
-| **Settlement Fee** | 0.1% | Exercised options | Settlement processing |
-| **Liquidation Fee** | 0.2% | Expired options | Cleanup and maintenance |
-
-### Revenue Projections
-
-Based on comparable DeFi options platforms:
-- **Conservative**: $50K-100K monthly revenue at 1M TVL
-- **Moderate**: $250K-500K monthly revenue at 10M TVL  
-- **Aggressive**: $1M+ monthly revenue at 50M+ TVL
-
-## 🏗️ Architecture
+## Architecture
+The core logic is implemented as an Anchor-based Solana program.
 
 ### Smart Contract Components
-
 ```
 ┌─────────────────┐    ┌─────────────────┐    ┌─────────────────┐
 │  Protocol State │    │ Options Markets │    │Option Contracts │
@@ -58,360 +42,282 @@ Based on comparable DeFi options platforms:
                     └─────────────────┘
 ```
 
-### Key Features
+## Revenue Model
+The platform generates revenue through:
+- **Protocol Fee**: Applied on option premiums (e.g., 0.5%).
+- **Settlement Fee**: Applied on exercised options (e.g., 0.1%).
+- **Liquidation Fee**: Applied on expired options (e.g., 0.2%).
 
-#### Options Writing
-- **Call Options**: Writers provide underlying tokens as collateral
-- **Put Options**: Writers provide quote tokens (strike × amount) as collateral
-- **Flexible Terms**: Custom strike prices and expiration dates
-- **Premium Setting**: Writers set their own premium rates
+These fees contribute to the sustainability and development of the protocol.
 
-#### Options Trading
-- **Permissionless**: Anyone can buy available options
-- **Partial Fills**: Buy portions of available contracts
-- **Fee Collection**: Automatic protocol fee deduction
-- **Position Tracking**: Individual buyer position management
-
-#### Settlement & Exercise
-- **Manual Exercise**: Buyers can exercise before expiration
-- **Automatic Expiry**: Expired options can be claimed by writers
-- **Collateral Return**: Unused collateral returned to writers
-- **Fee Collection**: Settlement fees automatically collected
-
-## 🚀 Getting Started
+## Getting Started
 
 ### Prerequisites
-
 - [Rust](https://rustup.rs/) (latest stable)
-- [Solana CLI](https://docs.solana.com/cli/install-solana-cli-tools) (1.18+)
-- [Anchor Framework](https://www.anchor-lang.com/docs/installation) (0.31+)
-- [Node.js](https://nodejs.org/) (18+)
-- [Yarn](https://yarnpkg.com/) package manager
+- [Solana CLI](https://docs.solana.com/cli/install-solana-cli-tools) (v1.18+)
+- [Anchor Framework](https://www.anchor-lang.com/docs/installation) (v0.29.0 or newer recommended, this project uses `0.29.0`)
+- [Node.js](https://nodejs.org/) (v18+)
+- [Yarn](https://yarnpkg.com/)
 
-### Installation
+### Project Structure
+- `/programs/solana-options-dex`: Anchor smart contract.
+- `/app`: Next.js frontend application.
+- `/tests`: Integration tests for the smart contract.
+- `/client`: TypeScript client for interacting with the smart contract.
 
-1. **Clone the repository**
-   ```bash
-   git clone https://github.com/your-org/solana-options-dex.git
-   cd solana-options-dex
-   ```
+### Installation & Setup
 
-2. **Install dependencies**
-   ```bash
-   yarn install
-   ```
+1.  **Clone the Repository:**
+    ```bash
+    git clone https://github.com/tuaregsand/sink69.git # Or your fork
+    cd sink69
+    ```
 
-3. **Build the program**
-   ```bash
-   anchor build
-   ```
+2.  **Install Workspace Dependencies (Root):**
+    This installs dependencies for the Anchor program and general workspace tools.
+    ```bash
+    yarn install
+    ```
 
-4. **Run tests**
-   ```bash
-   anchor test
-   ```
+3.  **Install Frontend Dependencies:**
+    ```bash
+    cd app
+    yarn install
+    cd ..
+    ```
 
-### Local Development
+### Smart Contract Development
 
-1. **Start local validator**
-   ```bash
-   solana-test-validator
-   ```
+1.  **Build the Anchor Program:**
+    ```bash
+    anchor build
+    ```
 
-2. **Configure Solana CLI**
-   ```bash
-   solana config set --url localhost
-   solana config set --keypair ~/.config/solana/id.json
-   ```
+2.  **Run Smart Contract Tests:**
+    ```bash
+    anchor test
+    ```
 
-3. **Deploy to local**
-   ```bash
-   anchor deploy
-   ```
+3.  **Local Validator Setup:**
+    Open a new terminal:
+    ```bash
+    solana-test-validator
+    ```
+    In your main terminal:
+    ```bash
+    solana config set --url localhost
+    # Configure your keypair if needed, e.g., for a fresh validator
+    # solana-keygen new --outfile ~/.config/solana/id.json --force 
+    # anchor keys list # To see the program ID after build
+    ```
 
-4. **Run deployment script**
-   ```bash
-   yarn run deploy:local
-   ```
+4.  **Deploy Program Locally:**
+    ```bash
+    anchor deploy
+    ```
+    *(Note: After the first deploy, take note of the program ID. You might need to update it in `/declare_id.sh` and `Anchor.toml` and `lib.rs` if it changes, then rebuild and redeploy.)*
 
-## 📋 Deployment Guide
+### Frontend Development
 
-### Devnet Deployment
+1.  **Navigate to the app directory:**
+    ```bash
+    cd app
+    ```
 
-1. **Configure for devnet**
-   ```bash
-   solana config set --url devnet
-   ```
+2.  **Set up Environment Variables:**
+    Create a `.env.local` file in the `app` directory by copying `.env.example` (if it exists) or by creating a new one.
+    Update `NEXT_PUBLIC_PROGRAM_ID` with your deployed program ID (from `anchor deploy` or `anchor keys list`).
+    Example `.env.local`:
+    ```env
+    NEXT_PUBLIC_CLUSTER='devnet' # or 'http://localhost:8899' for local
+    NEXT_PUBLIC_RPC_ENDPOINT='https://api.devnet.solana.com' # or 'http://localhost:8899' for local
+    NEXT_PUBLIC_PROGRAM_ID='YOUR_PROGRAM_ID_HERE' 
+    ```
 
-2. **Deploy the program**
-   ```bash
-   anchor deploy --provider.cluster devnet
-   ```
+3.  **Run the Frontend Development Server:**
+    ```bash
+    yarn dev
+    ```
+    The application should be available at `http://localhost:3000`.
 
-3. **Initialize the protocol**
-   ```bash
-   NETWORK=devnet yarn run deploy
-   ```
+## Deployment
 
-### Mainnet Deployment
+### Devnet
 
-1. **Configure for mainnet**
-   ```bash
-   solana config set --url mainnet-beta
-   ```
+1.  **Configure Solana CLI for Devnet:**
+    ```bash
+    solana config set --url https://api.devnet.solana.com
+    solana config set --keypair ~/.config/solana/id.json # Ensure this keypair is funded
+    solana airdrop 1 # If needed
+    ```
 
-2. **Fund your wallet**
-   - Ensure sufficient SOL for deployment costs (~5-10 SOL)
+2.  **Deploy the Program to Devnet:**
+    ```bash
+    anchor deploy --provider.cluster devnet
+    ```
+    Note the program ID.
 
-3. **Deploy with caution**
-   ```bash
-   anchor deploy --provider.cluster mainnet-beta
-   ```
+3.  **Update Frontend Configuration:**
+    Ensure `NEXT_PUBLIC_PROGRAM_ID` in `app/.env.local` is set to the new Devnet program ID and `NEXT_PUBLIC_CLUSTER` is `devnet`.
 
-4. **Initialize production settings**
-   ```bash
-   NETWORK=mainnet-beta yarn run deploy
-   ```
+4.  **Deploy Frontend (Example using Vercel/Netlify):**
+    Connect your Git repository to a platform like Vercel or Netlify for continuous deployment. Configure environment variables on the platform.
 
-⚠️ **Security Note**: Always verify program ID and use hardware wallets for mainnet deployments.
+### Mainnet
+Deploying to Mainnet requires significant caution, audits, and planning.
+1.  **Thoroughly Audit Your Smart Contract.**
+2.  **Configure Solana CLI for Mainnet:**
+    ```bash
+    solana config set --url https://api.mainnet-beta.solana.com
+    solana config set --keypair YOUR_MAINNET_KEYPAIR.json # Securely managed keypair
+    ```
+3.  **Ensure Sufficient Funding:** Your deployment keypair will need SOL for transaction fees.
+4.  **Deploy the Program to Mainnet:**
+    ```bash
+    anchor deploy --provider.cluster mainnet-beta
+    ```
+5.  **Update Frontend Configuration for Mainnet.**
+6.  **Deploy Frontend to Production Environment.**
 
-## 💻 Client SDK Usage
+## Integration Options
 
-### Basic Setup
+The Solana Options DEX protocol can be integrated in several ways:
 
+### 1. 📱 Web Frontend (Recommended for End Users)
+Build a user-friendly React/Next.js frontend for options trading. The `/app` directory in this repository provides a production-ready starting point.
+**Key Features to Build/Extend:**
+- Options Dashboard: View available options markets.
+- Trading Interface: Buy/sell options, potentially with price charts.
+- Portfolio Management: Track user positions and P&L.
+- Exercise Interface: Allow users to exercise their options.
+- Mobile Responsive Design.
+
+**Recommended Tech Stack (as used in `/app`):**
+- Framework: Next.js
+- Wallet: `@solana/wallet-adapter-react`
+- UI: Tailwind CSS
+- State Management: React Context/Zustand
+
+### 2. 🔧 Direct Programmatic Access (Using the TypeScript Client)
+Utilize the TypeScript client located in the `/client` directory for direct interaction with the smart contract. This is ideal for scripts, bots, or backend integrations.
+
+**Quick Start with Programmatic Access:**
 ```typescript
+// Example: client/client.ts or a similar setup
+import * as anchor from "@coral-xyz/anchor";
+import { Program, AnchorProvider } from "@coral-xyz/anchor";
 import { Connection, Keypair, PublicKey } from "@solana/web3.js";
-import { createOptionsClient, OptionType } from "./client";
+import { SolanaOptionsDex, IDL } from "../target/types/solana_options_dex"; // Adjust path as needed
 
-// Initialize client
-const connection = new Connection("https://api.devnet.solana.com");
-const wallet = new Wallet(Keypair.generate());
-const client = createOptionsClient(connection, wallet);
+async function main() {
+  // Configure connection and wallet
+  const connection = new Connection("https://api.devnet.solana.com", "confirmed");
+  const walletKeypair = Keypair.generate(); // Replace with your actual wallet
+  
+  // Airdrop SOL to wallet if on devnet/localnet
+  // const महिलाएं = await connection.requestAirdrop(walletKeypair.publicKey, anchor.web3.LAMPORTS_PER_SOL);
+  // await connection.confirmTransaction(airdropSignature);
+
+  const provider = new AnchorProvider(
+    connection,
+    new anchor.Wallet(walletKeypair),
+    AnchorProvider.defaultOptions()
+  );
+  const programId = new PublicKey("YOUR_PROGRAM_ID_HERE"); // Replace with your deployed program ID
+  const program = new Program<SolanaOptionsDex>(IDL, programId, provider);
+
+  // Example: Initialize protocol (if not already done by deployer)
+  /*
+  try {
+    const tx = await program.methods
+      .initializeProtocol(
+        new anchor.BN(50), // 0.5% protocol fee (50 basis points)
+        new anchor.BN(10), // 0.1% settlement fee (10 basis points)
+        new anchor.BN(20)  // 0.2% liquidation fee (20 basis points)
+      )
+      .accounts({
+        protocolState: /* PDA for protocol state */",
+        authority: provider.wallet.publicKey,
+        systemProgram: anchor.web3.SystemProgram.programId,
+      })
+      .rpc();
+    console.log("Protocol initialized, transaction:", tx);
+  } catch (err) {
+    console.error("Failed to initialize protocol (may already be initialized):", err);
+  }
+  */
+
+  // Example: Write a call option
+  // Ensure you have the mint addresses for underlying (e.g., SOL) and quote (e.g., USDC)
+  // Ensure the options market for these tokens is created
+  /*
+  const underlyingMint = new PublicKey("So11111111111111111111111111111111111111112"); // Wrapped SOL
+  const quoteMint = new PublicKey("EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v"); // USDC on Devnet
+
+  const writeTx = await program.methods
+    .writeOption(
+      new anchor.BN(Date.now()), // Unique timestamp for the option
+      { call: {} },              // Option type: Call
+      new anchor.BN(100 * 1e6),   // Strike price: 100 USDC (assuming 6 decimals for USDC)
+      new anchor.BN(Math.floor(Date.now() / 1000) + 7 * 24 * 60 * 60), // Expiration: 7 days from now
+      new anchor.BN(1 * 1e9),     // Amount: 1 SOL (assuming 9 decimals for SOL)
+      new anchor.BN(5 * 1e6)      // Premium: 5 USDC per contract
+    )
+    .accounts({
+      // ... required accounts for writeOption ...
+      // optionMarket, writer, writerUnderlyingAccount, writerQuoteAccount, 
+      // optionContract, underlyingMint, quoteMint, tokenProgram, systemProgram
+    })
+    .signers([walletKeypair]) // If writer is a new keypair
+    .rpc();
+  console.log("Option written, transaction:", writeTx);
+  */
+}
+
+main().then(() => console.log("Script finished.")).catch(err => console.error(err));
 ```
+*(Note: The above programmatic example is illustrative. You'll need to set up PDAs, token accounts, and ensure markets exist. Refer to `/tests` for detailed examples.)*
 
-### Writing Options
+### 3. 🏢 Enterprise Integration
+Integrate the Solana Options DEX protocol into existing DeFi platforms to offer options trading alongside other services. The TypeScript client can be used as a basis for such integrations.
 
-```typescript
-// Write a call option: SOL at $200 strike, expires in 7 days
-const currentTime = Math.floor(Date.now() / 1000);
-const expirationTime = currentTime + (7 * 24 * 60 * 60); // 7 days
+### 4. 🤖 Trading Bot Integration
+Develop automated trading strategies (e.g., market making, arbitrage) by leveraging the programmatic access provided by the client SDK.
 
-const { txSignature, optionContract } = await client.writeOption(
-  writerKeypair,
-  1, // Market ID
-  solMintAddress,
-  usdcMintAddress,
-  OptionType.Call,
-  200_000_000, // $200 strike (6 decimals)
-  expirationTime,
-  10_000_000, // 10 SOL worth of contracts
-  5_000_000   // $5 premium per contract
-);
+## API Reference (Core Smart Contract Functions)
+- `initialize_protocol(protocol_fee, settlement_fee, liquidation_fee)`: Sets up global protocol parameters. Typically called once by the authority.
+- `create_options_market(market_id, underlying_mint, quote_mint)`: Creates a new options market for a specific pair of SPL tokens.
+- `write_option(timestamp, option_type, strike_price, expiration_timestamp, amount, premium_per_contract)`: Allows a user (writer) to create a new option contract, locking collateral.
+- `buy_option(option_contract_pubkey, contracts_to_buy, expected_premium)`: Allows a user to purchase available option contracts.
+- `exercise_option(option_contract_pubkey, buyer_position_pubkey)`: Allows the holder of an option to exercise it before or at expiration if it's in-the-money.
+- `claim_expired_option_collateral(option_contract_pubkey)`: Allows the writer of an expired and unexercised option to reclaim their locked collateral.
+- `settle_fees(option_contract_pubkey)`: (If applicable, or part of other functions) Handles the distribution of collected fees.
 
-console.log("Option written:", optionContract.toString());
-```
+*(For detailed account structures and function signatures, refer to the IDL in `target/types/solana_options_dex.ts` and the Rust code in `programs/solana-options-dex/src/lib.rs`)*
 
-### Buying Options
+## Revenue Opportunities
+- **For Developers/Integrators**:
+    - Transaction Fees: Potentially add small service fees on top of protocol fees for UIs or services you build.
+    - Premium Features: Offer advanced analytics, automated strategies, or specialized interfaces.
+- **For Liquidity Providers/Traders**:
+    - Option Writing: Earn premiums by selling (writing) options.
+    - Arbitrage: Capitalize on price discrepancies.
+    - Market Making: Provide liquidity to earn from the bid-ask spread and premiums.
 
-```typescript
-// Buy 5 SOL worth of call options
-const { txSignature, buyerPosition } = await client.buyOption(
-  buyerKeypair,
-  optionContract,
-  5_000_000, // 5 contracts
-  usdcMintAddress
-);
+## Contributing
+Contributions are welcome! Please follow standard Git practices:
+1. Fork the repository.
+2. Create a new branch (`git checkout -b feature/YourFeature`).
+3. Make your changes.
+4. Commit your changes (`git commit -m 'Add some feature'`).
+5. Push to the branch (`git push origin feature/YourFeature`).
+6. Open a Pull Request.
 
-console.log("Position created:", buyerPosition.toString());
-```
+Please ensure your code is well-tested and follows the existing coding style.
 
-### Exercising Options
+## License
+This project is licensed under the MIT License - see the LICENSE file for details (if one exists, otherwise assume MIT).
 
-```typescript
-// Exercise the option position
-const txSignature = await client.exerciseOption(
-  buyerKeypair,
-  optionContract,
-  solMintAddress,
-  usdcMintAddress
-);
-
-console.log("Option exercised:", txSignature);
-```
-
-### Querying Data
-
-```typescript
-// Get all active options for SOL
-const activeOptions = await client.getActiveOptionsForUnderlying(solMintAddress);
-
-// Get user's positions
-const positions = await client.getBuyerPositions(userPublicKey);
-
-// Get protocol statistics
-const protocolState = await client.getProtocolState();
-console.log("Total Volume:", protocolState.totalVolume.toString());
-console.log("Fees Collected:", protocolState.totalFeesCollected.toString());
-```
-
-## 🧪 Testing
-
-### Running Tests
-
-```bash
-# Run all tests
-anchor test
-
-# Run specific test file
-anchor test tests/solana-options-dex.ts
-
-# Run with logs
-anchor test --skip-build --skip-deploy
-```
-
-### Test Coverage
-
-The test suite covers:
-- ✅ Protocol initialization
-- ✅ Options market creation
-- ✅ Call option writing and trading
-- ✅ Put option writing and trading
-- ✅ Option exercise mechanics
-- ✅ Expiration and claiming
-- ✅ Fee collection
-- ✅ Error conditions
-
-### Performance Tests
-
-```bash
-# Stress test with multiple concurrent operations
-yarn test:stress
-
-# Gas optimization tests
-yarn test:gas
-```
-
-## 🔐 Security Considerations
-
-### Audit Checklist
-
-- [x] **Arithmetic Safety**: All math operations use checked arithmetic
-- [x] **Access Controls**: Proper authority and ownership checks
-- [x] **Reentrancy Protection**: State updates before external calls
-- [x] **Integer Overflow**: SafeMath equivalent usage throughout
-- [x] **Account Validation**: Comprehensive account constraint validation
-- [x] **Time Safety**: Proper timestamp validation and comparison
-
-### Known Limitations
-
-1. **Oracle Dependency**: No built-in price oracle (intentional for flexibility)
-2. **European Style**: Options can only be exercised at expiration
-3. **No Partial Exercise**: All contracts in a position must be exercised together
-4. **Collateral Lock**: Full collateral locked regardless of sales
-
-### Best Practices
-
-- Always use hardware wallets for mainnet operations
-- Verify all transaction details before signing
-- Test thoroughly on devnet before mainnet deployment
-- Monitor for unusual trading patterns
-- Implement circuit breakers for large-scale operations
-
-## 📊 Monitoring & Analytics
-
-### Key Metrics to Track
-
-1. **Volume Metrics**
-   - Total trading volume
-   - Daily/weekly/monthly volume trends
-   - Volume by underlying asset
-
-2. **Fee Metrics**
-   - Total fees collected
-   - Fee breakdown by type
-   - Fee yield percentages
-
-3. **Usage Metrics**
-   - Number of active options
-   - Exercise rate
-   - Average time to expiration
-
-4. **User Metrics**
-   - Unique writers vs buyers
-   - User retention rates
-   - Average position sizes
-
-### Dashboard Setup
-
-```typescript
-// Example analytics queries
-const analytics = {
-  totalVolume: await client.getProtocolState().totalVolume,
-  activeOptions: await client.getActiveOptionsForUnderlying(tokenMint),
-  recentTrades: await getRecentTransactions(programId),
-  topMarkets: await getMostActiveMarkets()
-};
-```
-
-## 🛣️ Roadmap
-
-### Phase 1 (Current) - Core Platform ✅
-- Basic options writing and trading
-- Call and put options support
-- Manual exercise functionality
-- Fee collection system
-
-### Phase 2 - Enhanced Features 🚧
-- [ ] Automated market making
-- [ ] Options pricing models
-- [ ] Portfolio management tools
-- [ ] Advanced order types
-
-### Phase 3 - Ecosystem Integration 📋
-- [ ] Oracle integration (Pyth, Chainlink)
-- [ ] Cross-chain bridging
-- [ ] Mobile app development
-- [ ] Institutional features
-
-### Phase 4 - Advanced DeFi 🔮
-- [ ] Options strategies (spreads, straddles)
-- [ ] Yield farming with options
-- [ ] Insurance products
-- [ ] Governance token launch
-
-## 🤝 Contributing
-
-We welcome contributions! Please see our [Contributing Guide](CONTRIBUTING.md) for details.
-
-### Development Workflow
-
-1. Fork the repository
-2. Create a feature branch (`git checkout -b feature/amazing-feature`)
-3. Make your changes
-4. Add tests for new functionality
-5. Ensure all tests pass (`anchor test`)
-6. Commit your changes (`git commit -m 'Add amazing feature'`)
-7. Push to the branch (`git push origin feature/amazing-feature`)
-8. Open a Pull Request
-
-### Code Standards
-
-- Follow Rust naming conventions
-- Add comprehensive tests for new features
-- Document all public APIs
-- Use meaningful commit messages
-- Ensure code passes all linters
-
-## 📄 License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
-## 🆘 Support
-
-- **Discord**: [Join our community](https://discord.gg/solana-options)
-- **Twitter**: [@SolanaOptionsDEX](https://twitter.com/SolanaOptionsDEX)
-- **Email**: support@solana-options-dex.com
-- **Documentation**: [Full docs](https://docs.solana-options-dex.com)
 
 ## ⚠️ Disclaimer
 
