@@ -276,7 +276,7 @@ async function main() {
 
 main().then(() => console.log("Script finished.")).catch(err => console.error(err));
 ```
-*(Note: The above programmatic example is illustrative. You'll need to set up PDAs, token accounts, and ensure markets exist. Refer to `/tests` for detailed examples.)*
+*(Note: The above programmatic example is illustrative. You'll need to set up PDAs, token accounts, and ensure
 
 ### 3. 🏢 Enterprise Integration
 Integrate the Solana Options DEX protocol into existing DeFi platforms to offer options trading alongside other services. The TypeScript client can be used as a basis for such integrations.
