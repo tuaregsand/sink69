@@ -6,6 +6,10 @@
 ![TypeScript](https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white)
 ![Next.js](https://img.shields.io/badge/Next.js-000000?style=for-the-badge&logo=nextdotjs&logoColor=white)
 
+<div align="center">
+  <img src="sink69.png" alt="SINK69 - Decentralized Options Trading Platform" width="400"/>
+</div>
+
 A production-ready decentralized options trading platform built on Solana. Write, buy, and exercise options contracts for any SPL token with automated settlement and fee collection. This repository contains the Anchor smart contract and a Next.js frontend application.
 
 ## Features
